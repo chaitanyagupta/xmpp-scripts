@@ -43,6 +43,13 @@ var startRosterAdd = function (username, contacts) {
     for (var i in contacts) {
         client.add(contacts[i]);
     }
+    client.on('end', function () {
+        exitCallback();
+    });
+    client.once('stanza', function () {
+        console.log('Closing XMPP connection');
+        client.end();
+    });
 };
 
 var start = function () {
