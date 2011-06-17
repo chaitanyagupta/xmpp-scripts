@@ -21,7 +21,6 @@ function RosterClient (attrs) {
         self.emit('visible');
     });
     self.on('stanza', function (stanza) {
-        console.log('got stanza: ' + stanza);
         if (stanza.is('presence') && (stanza.type == 'subscribe')) {
             this.send(new xml.Presence({ to: stanza.from, type: 'subscribed' }));
         }
@@ -30,10 +29,12 @@ function RosterClient (attrs) {
 
 sys.inherits(RosterClient, xmpp.Client);
 
+/*
 RosterClient.prototype.send = function(stanza) {
     console.log('sending from raw client: ' + stanza);
     RosterClient.super_.prototype.send.call(this, stanza);
 };
+*/
 
 RosterClient.prototype.add = function (username) {
     var self = this;
