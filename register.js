@@ -58,7 +58,7 @@ var getField = function (varname, value) {
     return field;
 };
 
-var createUser = function (client, username, password, name) {
+var createUser = function (client, username, password, name, callback, errback) {
     var iq = new xml.Iq({
         id: utils.getUID(),
         type: 'set'
@@ -84,10 +84,9 @@ var createUser = function (client, username, password, name) {
         if (stanza.id == iq.id) {
             client.removeListener('iq', arguments.callee);
             if (stanza.type == 'result') {
-                console.log('register: ' + username + ' created successfully');
+                callback(username);
             } else {
-                console.log('register: error registering ' + username);
-                console.log(stanza.toString());
+                errback(stanza.getChild('error').toString(), username);
             }
         }
     });
@@ -95,9 +94,20 @@ var createUser = function (client, username, password, name) {
 };
 
 var register = function (client, usernames) {
+    var remaining = usernames.length;
     client.on('features', function (features) {
+        var callback = function (username) {
+            console.log('register: ' + username + ' created successfully');
+            --remaining;
+            if (remaining === 0) { process.exit(); }
+        };
+        var errback = function (e, username) {
+            console.log('register: error registering ' + username + ': ' + e);
+            --remaining;
+            if (remaining === 0) { process.exit(); }
+        };
         var registerUser = function (username) {
-            createUser(client, username, username, username);
+            createUser(client, username, username, username, callback, errback);
         };
         for (var i in usernames) {
             registerUser(usernames[i]);
