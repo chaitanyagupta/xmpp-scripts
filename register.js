@@ -83,18 +83,18 @@ var createUser = function (client, username, password, name, callback, errback) 
     client.send(iq);
 };
 
-var register = function (client, usernames) {
+var register = function (client, usernames, doneCallback) {
     var remaining = usernames.length;
     client.on('features', function (features) {
         var callback = function (username) {
             console.log('register: ' + username + ' created successfully');
             --remaining;
-            if (remaining === 0) { process.exit(); }
+            if (remaining === 0) { doneCallback(); }
         };
         var errback = function (e, username) {
             console.log('register: error registering ' + username + ': ' + e);
             --remaining;
-            if (remaining === 0) { process.exit(); }
+            if (remaining === 0) { doneCallback(); }
         };
         var registerUser = function (username) {
             createUser(client, username, username, username, callback, errback);
