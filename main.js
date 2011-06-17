@@ -96,7 +96,27 @@ var startRosterAdd = function (username, contacts) {
     });
 };
 
-var start = function () {
+// just go online
+
+var goOnline = function (username) {
+    var client = new xmpp.Client({ host: host,
+                                   port: port,
+                                   jid: username + '@' + domain,
+                                   password: username });
+    client.on('online', function () {
+        client.send(new xml.Presence());
+    });
+}
+
+var startOnline = function (usernames) {
+    for (var i in usernames) {
+        goOnline(usernames[i]);
+    }
+}
+
+// program entry
+
+var main = function () {
     console.assert(domain, "'domain' not provided");
     if (!host || !port) {
         host = domain;
@@ -107,9 +127,9 @@ var start = function () {
     switch (command) {
         case 'register': startRegister(args); break;
         case 'roster': startRosterAdd(args[0], args.slice(1)); break;
+        case 'online': startOnline(args); break;
         default: console.log('Usage: node main.js command args...'); break;
     }
 };
 
-start();
-
+main();
