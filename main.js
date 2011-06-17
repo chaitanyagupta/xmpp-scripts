@@ -35,10 +35,14 @@ var startRegister = function (usernames) {
 
 // roster
 
-var startRosterAdd = function (user, contacts) {
-    var client = new roster.RosterClient({ jid: 'user2@cg-mac.example.com',
-                                           password: 'user2' });
-    client.add('user11@cg-mac.example.com');
+var startRosterAdd = function (username, contacts) {
+    var client = new roster.RosterClient({ host: host,
+                                           port: port,
+                                           jid: username + '@' + domain,
+                                           password: username });
+    for (var i in contacts) {
+        client.add(contacts[i]);
+    }
 };
 
 var start = function () {

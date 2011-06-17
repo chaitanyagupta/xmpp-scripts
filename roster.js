@@ -35,15 +35,17 @@ RosterClient.prototype.send = function(stanza) {
     RosterClient.super_.prototype.send.call(this, stanza);
 };
 
-RosterClient.prototype.add = function (jid) {
+RosterClient.prototype.add = function (username) {
     var self = this;
     if (self.state != STATE_ONLINE) {
         self.once('online', function () {
-            self.add(jid);
+            self.add(username);
         });
         return;
     }
 
+    console.log('roster: subscribing to ' + username);
+    var jid = username + '@' + self.jid.domain;
     this.send(new xml.Presence({ to: jid, type: 'subscribe' }));
 };
 
