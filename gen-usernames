@@ -1,0 +1,11 @@
+#!/bin/bash
+
+prefix="$1"
+low=$2
+high=$3
+
+for ((i=$low; i <= $high; i++))
+do
+    echo "$prefix$i"
+done
+
