@@ -35,13 +35,10 @@ RECV:
 SEND:
 <iq type='set' id='purple8f08d3c0'>
   <query xmlns='jabber:iq:register'>
-    <x xmlns='jabber:x:data' type='submit'>
-      <field var='FORM_TYPE'><value>jabber:iq:register</value></field>
-      <field var='username'><value>user4</value></field>
-      <field var='name'><value>4th User</value></field>
-      <field var='email'><value>user4@cgs-laptop.example.com</value></field>
-      <field var='password'><value>user4</value></field>
-    </x>
+    <username>test-user</username>
+    <password>test-user</password>
+    <name>test-user</name>
+    <email>test-user@cg-mac.example.com</email>
   </query>
 </iq>
 
@@ -50,11 +47,9 @@ RECV:
 
 */
 
-var getField = function (varname, value) {
-    var field = new xml.Element('field', {
-        var: varname
-    });
-    field.children.push(new xml.Element('value').t(value));
+var createField = function (name, value) {
+    var field = new xml.Element(name);
+    field.t(value);
     return field;
 };
 
@@ -68,16 +63,10 @@ var createUser = function (client, username, password, name, callback, errback) 
         xmlns: 'jabber:iq:register'
     });
 
-    var x = new xml.Element('x', {
-        xmlns: 'jabber:x:data',
-        type: 'submit'
-    });
-    x.cnode(getField('username', username));
-    x.cnode(getField('password', password));
-    x.cnode(getField('name', name || 'Default'));
-    x.cnode(getField('email', username + '@' + client.domain));
-
-    query.cnode(x);
+    query.cnode(createField('username', username));
+    query.cnode(createField('password', password));
+    query.cnode(createField('name', name || 'Default'));
+    query.cnode(createField('email', username + '@' + client.domain));
 
     iq.cnode(query);
 
