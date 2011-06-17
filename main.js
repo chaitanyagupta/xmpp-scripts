@@ -14,12 +14,12 @@ var createClient = function (host, port, domain) {
                                 domain: domain });
 };
 
-var startRegister = function () {
+var startRegister = function (usernames) {
     var client = createClient('127.0.0.1', 5222, 'cg-mac.example.com');
     client.on('error', function (e) {
         console.error('got client error: ' + e);
     });
-    register.register(client, arguments);
+    register.register(client, usernames);
     client.connect();
 };
 
@@ -33,7 +33,7 @@ var start = function () {
     var command = process.argv[2];
     var args = process.argv.slice(3);
     switch (command) {
-        case 'register': startRegister.apply(null, args); break;
+        case 'register': startRegister(args); break;
         case 'roster': startRosterAdd.apply(null, args); break;
         default: console.log('Usage: node main.js command args...'); break;
     }
