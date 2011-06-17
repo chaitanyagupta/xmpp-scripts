@@ -75,6 +75,7 @@ var createUser = function (client, username, password, name, callback, errback) 
     x.cnode(getField('username', username));
     x.cnode(getField('password', password));
     x.cnode(getField('name', name || 'Default'));
+    x.cnode(getField('email', username + '@' + client.domain));
 
     query.cnode(x);
 
