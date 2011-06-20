@@ -147,7 +147,7 @@ var main = function () {
         case 'register': startRegister(args); break;
         case 'roster-add': startRosterAdd(args[0], args.slice(1)); break;
         case 'roster-remove': startRosterRemove(args[0], args.slice(1)); break;
-        case 'online': startOnline(args); break;
+        case 'go-online': startOnline(args); break;
         default: console.log('Usage: node main.js command args...'); break;
     }
 };
