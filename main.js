@@ -4,13 +4,14 @@ var xml = xmpp.XML;
 var utils = require('./utils');
 var register = require('./register');
 var roster = require('./roster');
+var conf = require('./conf');
 
 var NS_CLIENT = 'jabber:client';
 var NS_STREAM = 'http://etherx.jabber.org/streams';
 
-var host = '127.0.0.1';
-var port = 5222;
-var domain = 'cg-mac.example.com';
+var host = conf.host;
+var port = conf.port;
+var domain = conf.domain;
 
 // exit callback
 
