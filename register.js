@@ -1,4 +1,4 @@
-var xmpp = require('../../js/node-xmpp/lib/node-xmpp');
+var xmpp = require('node-xmpp');
 var xml = xmpp.XML;
 var utils = require('./utils');
 
