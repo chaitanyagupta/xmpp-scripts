@@ -68,4 +68,10 @@ main script:
 Notes
 =====
 
-Event-driven programming sucks for scripting.
+`register` should work with any XMPP server which supports in-band
+registration. Other actions should just work with any XMPP server.
+
+However, the code is not tested much, and it has only been tested
+with Openfire.
+
+In other news, event-driven programming sucks for scripting.
