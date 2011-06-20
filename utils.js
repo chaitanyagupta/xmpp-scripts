@@ -1,6 +1,6 @@
-global.i = 0;
+var i = 0;
 var getUID = function () {
-    return 'RawClient_' + global.i++;
+    return 'RawClient_' + i++;
 };
 
 exports.getUID = getUID;
