@@ -36,7 +36,7 @@ var startRegister = function (usernames) {
     client.connect();
 };
 
-// roster
+// roster add
 
 var startAcceptSubscription = function (username, callback) {
     console.log('Accepting subscriptions for: ' + username);
@@ -96,6 +96,25 @@ var startRosterAdd = function (username, contacts) {
     });
 };
 
+// roster remove
+
+var startRosterRemove = function (username, contacts) {
+    var client = new roster.RosterClient({ host: host,
+                                           port: port,
+                                           jid: username + '@' + domain,
+                                           password: username });
+    for (var i in contacts) {
+        client.remove(contacts[i]);
+    }
+    client.on('stanza', function (stanza) {
+        console.log('Received: ' + stanza);
+    });
+    client.once('stanza', function () {
+        console.log('Closing XMPP connection');
+        client.end();
+    });
+};
+
 // just go online
 
 var goOnline = function (username) {
@@ -126,7 +145,8 @@ var main = function () {
     var args = process.argv.slice(3);
     switch (command) {
         case 'register': startRegister(args); break;
-        case 'roster': startRosterAdd(args[0], args.slice(1)); break;
+        case 'roster-add': startRosterAdd(args[0], args.slice(1)); break;
+        case 'roster-remove': startRosterRemove(args[0], args.slice(1)); break;
         case 'online': startOnline(args); break;
         default: console.log('Usage: node main.js command args...'); break;
     }

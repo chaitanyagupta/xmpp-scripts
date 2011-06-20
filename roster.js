@@ -29,12 +29,12 @@ function RosterClient (attrs) {
 
 sys.inherits(RosterClient, xmpp.Client);
 
-/*
+
 RosterClient.prototype.send = function(stanza) {
     console.log('sending from raw client: ' + stanza);
     RosterClient.super_.prototype.send.call(this, stanza);
 };
-*/
+
 
 RosterClient.prototype.add = function (username) {
     var self = this;
@@ -48,6 +48,24 @@ RosterClient.prototype.add = function (username) {
     console.log('roster: subscribing to ' + username);
     var jid = username + '@' + self.jid.domain;
     this.send(new xml.Presence({ to: jid, type: 'subscribe' }));
+};
+
+RosterClient.prototype.remove = function (username) {
+    var self = this;
+    if (self.state != STATE_ONLINE) {
+        self.once('online', function () {
+            self.remove(username);
+        });
+        return;
+    }
+
+    console.log('roster: removing ' + username);
+    var jid = username + '@' + self.jid.domain;
+    var iq = new xml.Iq({id: utils.getUID(), type: 'set'});
+    var query = new xml.Element('query', { xmlns: 'jabber:iq:roster' });
+    query.c('item', { jid: jid, subscription: 'remove' });
+    iq.cnode(query);
+    self.send(iq);
 };
 
 exports.RosterClient = RosterClient;
