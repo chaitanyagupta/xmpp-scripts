@@ -76,4 +76,5 @@ should just work with any XMPP server.
 However, the code is not tested much, and it has only been tested
 with Openfire.
 
-In other news, event-driven programming sucks for scripting.
+In other news, event-driven programming (read: node.js) sucks for
+scripting.
