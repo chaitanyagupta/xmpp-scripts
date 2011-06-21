@@ -69,7 +69,9 @@ Notes
 =====
 
 `register` should work with any XMPP server which supports in-band
-registration. Other actions should just work with any XMPP server.
+registration
+([XEP-0077](http://xmpp.org/extensions/xep-0077.html)). Other actions
+should just work with any XMPP server.
 
 However, the code is not tested much, and it has only been tested
 with Openfire.
