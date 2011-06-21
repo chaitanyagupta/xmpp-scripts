@@ -2,6 +2,7 @@ var net = require('net');
 var xmpp = require('node-xmpp');
 var xml = xmpp.XML;
 var utils = require('./utils');
+var RawClient = require('./raw-client');
 var register = require('./register');
 var roster = require('./roster');
 var conf = require('./conf');
@@ -23,9 +24,9 @@ var exitCallback = function () {
 // register
 
 var createClient = function (host, port, domain) {
-    return new xmpp.RawClient({ host: host,
-                                port: port,
-                                domain: domain });
+    return new RawClient.RawClient({ host: host,
+                                     port: port,
+                                     domain: domain });
 };
 
 var startRegister = function (usernames) {
