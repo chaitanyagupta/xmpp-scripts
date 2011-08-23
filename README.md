@@ -68,6 +68,13 @@ main script:
 Notes
 =====
 
+The user that is created with `register` has the same password as
+username.
+
+For `roster-add`, its best to limit the number of users (to be added
+to the first user's roster) to around 200. At some beyond that,
+roster-add fails -- I do not yet know why this happens.
+
 `register` should work with any XMPP server which supports in-band
 registration
 ([XEP-0077](http://xmpp.org/extensions/xep-0077.html)). Other actions
