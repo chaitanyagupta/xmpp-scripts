@@ -2,10 +2,10 @@ Introduction
 ============
 
 xmpp-scripts is a set of scripts written in node.js to generate a
-large number of users for a local openfire installation, or to add (or
-remove) them to a single user's roster, or to take them online en
-masse (the idea is to test roster performance of an XMPP client in a
-controlled environment).
+large number of users on an XMPP server, or to add (or remove) them to
+a single user's roster, or to take them online en masse (the idea is
+to test roster performance of an XMPP client in a controlled
+environment).
 
 Basic usage goes like this:
 
